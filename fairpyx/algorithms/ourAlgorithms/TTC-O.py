@@ -4,7 +4,7 @@ from fairpyx import Instance, AllocationBuilder
 import logging
 logger = logging.getLogger(__name__)
 
-def TTC_O(alloc: AllocationBuilder) -> list[list[any]]:
+def TTC_O(alloc: AllocationBuilder):
     """
     "Optimization-based Mechanisms for the Course Allocation Problem", by Hoda Atef Yekta, Robert Day (2020) .https://doi.org/10.1287/ijoc.2018.0849
     Algorethem 3: Allocate the given items to the given agents using the TTC-O protocol.
@@ -22,4 +22,4 @@ def TTC_O(alloc: AllocationBuilder) -> list[list[any]]:
     >>> divide(TTC_O, instance=instance)
     {'s1': ['c2'], 's2': ['c1']}
     """
-    return 0
+    

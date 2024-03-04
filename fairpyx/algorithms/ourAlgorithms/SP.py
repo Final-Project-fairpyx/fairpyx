@@ -4,7 +4,7 @@ from fairpyx import Instance, AllocationBuilder
 import logging
 logger = logging.getLogger(__name__)
 
-def SP(alloc: AllocationBuilder) -> list[list[any]]:
+def SP(alloc: AllocationBuilder):
     """
     "Optimization-based Mechanisms for the Course Allocation Problem", by Hoda Atef Yekta, Robert Day (2020) .https://doi.org/10.1287/ijoc.2018.0849
     Algorethem 2: Allocate the given items to the given agents using the SP protocol.
@@ -22,6 +22,6 @@ def SP(alloc: AllocationBuilder) -> list[list[any]]:
     >>> divide(SP, instance=instance)
     {'s1': ['c1'], 's2': ['c2']}
     """
-    return 0
+    
 
 
