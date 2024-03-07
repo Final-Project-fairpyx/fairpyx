@@ -4,7 +4,7 @@ from fairpyx import Instance, AllocationBuilder
 import logging
 logger = logging.getLogger(__name__)
 
-def OC(alloc: AllocationBuilder):
+def OC_function(alloc: AllocationBuilder):
     """
     "Optimization-based Mechanisms for the Course Allocation Problem", by Hoda Atef Yekta, Robert Day (2020) .https://doi.org/10.1287/ijoc.2018.0849
     Algorethem 5: Allocate the given items to the given agents using the OC protocol.
@@ -19,7 +19,7 @@ def OC(alloc: AllocationBuilder):
     >>> course_capacities = {"c1": 2, "c2": 1, "c3": 2}                       # 5 seats available
     >>> valuations = {"s1": s1, "s2": s2}
     >>> instance = Instance(agent_capacities=agent_capacities, item_capacities=course_capacities, valuations=valuations)
-    >>> divide(OC, instance=instance)
+    >>> divide(OC_function, instance=instance)
     {'s1': ['c1', 'c3'], 's2': ['c1', 'c2']}
     """
 

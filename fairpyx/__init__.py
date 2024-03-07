@@ -5,6 +5,7 @@ from fairpyx.satisfaction import AgentBundleValueMatrix
 from fairpyx.explanations import ExplanationLogger, ConsoleExplanationLogger, StringsExplanationLogger, FilesExplanationLogger
 from fairpyx.adaptors import divide
 
+
 import fairpyx.algorithms as algorithms
 
 # # Algorithms:

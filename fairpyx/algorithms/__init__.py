@@ -2,4 +2,9 @@ from fairpyx.algorithms.almost_egalitarian import almost_egalitarian_allocation,
 from fairpyx.algorithms.iterated_maximum_matching import iterated_maximum_matching, iterated_maximum_matching_adjusted, iterated_maximum_matching_unadjusted
 from fairpyx.algorithms.picking_sequence import round_robin, bidirectional_round_robin, serial_dictatorship
 from fairpyx.algorithms.utilitarian_matching import utilitarian_matching
-from fairpyx.algorithms.ourAlgorithms import TTC
+from fairpyx.algorithms.ourAlgorithms.OC import OC_function 
+from fairpyx.algorithms.ourAlgorithms.SP_O import SP_O_function 
+from fairpyx.algorithms.ourAlgorithms.SP import SP_function 
+from fairpyx.algorithms.ourAlgorithms.TTC_O import TTC_O_function 
+from fairpyx.algorithms.ourAlgorithms.TTC import TTC_function 
+

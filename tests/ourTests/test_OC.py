@@ -12,6 +12,8 @@ import numpy as np
 
 
 def test_feasibility():
+
+    # TODO
     s1 = {"c1": 50, "c2": 49, "c3": 1}
     s2 = {"c1": 48, "c2": 46, "c3": 6}
     instance = fairpyx.Instance(
@@ -20,7 +22,7 @@ def test_feasibility():
         valuations = {"s1": s1, "s2": s2}
         )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function , instance=instance) == {'s1': ['c1'], 's2': ['c2']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.OC_function , instance=instance) == {'s1': ['c1'], 's2': ['c2']}, "ERROR"
 
 if __name__ == "__main__":
     pytest.main(["-v",__file__])
