@@ -12,6 +12,7 @@ import numpy as np
 
 
 def test_feasibility():
+
         s1 = {"c1": 50, "c2": 49, "c3": 1}
         s2 = {"c1": 48, "c2": 46, "c3": 6}
         instance = fairpyx.Instance(
