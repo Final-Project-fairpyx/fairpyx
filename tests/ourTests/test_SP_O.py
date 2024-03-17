@@ -34,8 +34,33 @@ def test_optimal_change_result():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c2'], 's2': ['c1']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.SP_O_function, instance=instance) == {'s1': ['c2'], 's2': ['c1']}, "ERROR"
 
+
+def test_optimal_improve_cardinal_and_ordinal_results():
+    s1 = {"c1": 50, "c2": 30, "c3": 20}
+    s2 = {"c1": 40, "c2": 50, "c3": 10}
+    s3 = {"c1": 60, "c2": 10, "c3": 30}
+    instance = fairpyx.Instance(
+        agent_capacities={"s1": 2, "s2": 2, "s3": 2},
+        item_capacities={"c1": 2, "c2": 3, "c3": 1},
+        valuations={"s1": s1, "s2": s2, "s3": s3}
+    )
+
+    assert fairpyx.divide(fairpyx.algorithms.SP_O_function, instance=instance) == {'s1': ['c1', 'c2'], 's2': ['c2', 'c3'],  's3': ['c1', 'c2']}, "ERROR"
+
+
+def test_sub_round_within_sub_round():
+    s1 = {"c1": 40, "c2": 10, "c3": 20, "c4": 30}
+    s2 = {"c1": 50, "c2": 10, "c3": 15, "c4": 25}
+    s3 = {"c1": 60, "c2": 30, "c3": 2, "c4": 8}
+    instance = fairpyx.Instance(
+        agent_capacities={"s1": 2, "s2": 2, "s3": 2},
+        item_capacities={"c1": 1, "c2": 2, "c2": 2, "c4": 1},
+        valuations={"s1": s1, "s2": s2, "s3": s3}
+    )
+
+    assert fairpyx.divide(fairpyx.algorithms.SP_O_function, instance=instance) == {'s1': ['c3', 'c4'], 's2': ['c1', 'c2'], 's3': ['c2', 'c3']}, "ERROR"
 
 if __name__ == "__main__":
     pytest.main(["-v",__file__])

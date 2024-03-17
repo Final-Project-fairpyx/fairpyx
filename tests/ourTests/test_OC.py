@@ -34,7 +34,7 @@ def test_optimal_change_result():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c2'], 's2': ['c1']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.OC_function, instance=instance) == {'s1': ['c2'], 's2': ['c1']}, "ERROR"
 
 
 def test_student_bids_the_same_for_different_courses():
@@ -46,7 +46,7 @@ def test_student_bids_the_same_for_different_courses():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c3'], 's2': ['c1', 'c2']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.OC_function, instance=instance) == {'s1': ['c1', 'c3'], 's2': ['c1', 'c2']}, "ERROR"
 
 
 if __name__ == "__main__":

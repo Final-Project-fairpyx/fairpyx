@@ -73,6 +73,18 @@ def test_student_dont_get_k_courses():
     assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c3'], 's2': ['c2'], 's3': ['c1', 'c3']}, "ERROR"
 
 
+def test_sub_round_within_sub_round():
+    s1 = {"c1": 40, "c2": 10, "c3": 20, "c4": 30}
+    s2 = {"c1": 50, "c2": 10, "c3": 15, "c4": 25}
+    s3 = {"c1": 60, "c2": 30, "c3": 2, "c4": 8}
+    instance = fairpyx.Instance(
+        agent_capacities={"s1": 2, "s2": 2, "s3": 2},
+        item_capacities={"c1": 1, "c2": 2, "c2": 2, "c4": 1},
+        valuations={"s1": s1, "s2": s2, "s3": s3}
+    )
+
+    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c4', 'c3'], 's2': ['c3', 'c2'], 's3': ['c1', 'c2']}, "ERROR"
+
 def test_student_bids_the_same_for_different_courses():
     s1 = {"c1": 50, "c2": 50}
     s2 = {"c1": 40, "c2": 60}
@@ -85,6 +97,19 @@ def test_student_bids_the_same_for_different_courses():
 
     assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1']}, "ERROR"
 
+def test_from_the_article():
+    s1 = {"c1": 400, "c2": 150, "c3": 230, "c4": 200, "c5": 20}
+    s2 = {"c1": 245, "c2": 252, "c3": 256, "c4": 246, "c5": 1}
+    s3 = {"c1": 243, "c2": 230, "c3": 240, "c4": 245, "c5": 42}
+    s4 = {"c1": 251, "c2": 235, "c3": 242, "c4": 201, "c5": 71}
+    instance = fairpyx.Instance(
+        agent_capacities={"s1": 3, "s2": 3, "s3": 3, "s4": 3},
+        item_capacities={"c1": 2, "c2": 3, "c3": 3, "c4": 2, "c5": 2},
+        item_conflicts={"c1": ['c4'], "c4": ['c1']},
+        valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4}
+    )
+
+    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c5'], 's2': ['c3', 'c2', 'c4'], 's3': ['c4', 'c3', 'c5'], 's4': ['c1', 'c3', 'c2']}, "ERROR"
 
 def test_different_k_for_students():
     s1 = {"c1": 400, "c2": 200, "c3": 150, "c4": 130, "c5": 120}
@@ -100,7 +125,7 @@ def test_different_k_for_students():
         valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4, "s5": s5, "s6": s6, "s7": s7}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1', 'c2'], 's4': ['c2', 'c3', 'c5'], 's5': ['c2', 'c3', 'c4'], 's6': ['c2', 'c3', 'c4', 'c5'], 's7': ['c3']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1', 'c2'], 's4': ['c2', 'c3', 'c5']}, "ERROR"
 
 
 if __name__ == "__main__":
