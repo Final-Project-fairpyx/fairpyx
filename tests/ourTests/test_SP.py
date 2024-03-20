@@ -11,19 +11,34 @@ import pytest
 import fairpyx
 import numpy as np
 
+NUM_OF_RANDOM_INSTANCES=10
 
-def test_feasibility():
 
-    # TODO
-    s1 = {"c1": 50, "c2": 49, "c3": 1}
-    s2 = {"c1": 48, "c2": 46, "c3": 6}
+def test_number_of_courses_is_not_optimal():
+    s1 = {"c1": 25, "c2": 25, "c3": 25, "c4": 25}
+    s2 = {"c1": 20, "c2": 20, "c3": 40, "c4": 20}
     instance = fairpyx.Instance(
-        agent_capacities = {"s1": 1, "s2": 1},
-        item_capacities = {"c1": 1, "c2": 1, "c3": 1},
-        valuations = {"s1": s1, "s2": s2}
-        )
+        agent_capacities={"s1": 3, "s2": 3},
+        item_capacities={"c1": 1, "c2": 2, "c3": 2, "c4": 1},
+        valuations={"s1": s1, "s2": s2}
+    )
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1', 'c2', 'c4'], 's2': ['c2', 'c3']}, "ERROR"
 
-    assert fairpyx.divide(fairpyx.algorithms.SP_function , instance=instance) == {'s1': ['c1'], 's2': ['c2']}, "ERROR"
+
+def test_small_example():
+    s1 = {"c1": 50, "c2": 40, "c3": 5, "c4": 5}
+    s2 = {"c1": 20, "c2": 20, "c3": 30, "c4": 30}
+    s3 = {"c1": 60, "c2": 30, "c3": 1, "c4": 9}
+
+    instance = fairpyx.Instance(
+        agent_capacities={"s1": 2, "s2": 2, "s3": 2},
+        item_capacities={"c1": 1, "c2": 1, "c3": 2, "c4": 2},
+        valuations={"s1": s1, "s2": s2}
+    )
+
+    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c2', 'c3'],
+                                                                                  's2': ['c3', 'c4'],
+                                                                                  's3': ['c1', 'c4']}, "ERROR"
 
 
 def test_optimal_change_result():
@@ -120,6 +135,18 @@ def test_different_k_for_students():
 
     assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1', 'c2'], 's4': ['c2', 'c3', 'c5'], 's5': ['c2', 'c3', 'c4'], 's6': ['c2', 'c3', 'c4', 'c5'], 's7': ['c3']}, "ERROR"
 
+def test_random():
+    for i in range(NUM_OF_RANDOM_INSTANCES):
+        np.random.seed(i)
+        instance = fairpyx.Instance.random_uniform(
+            num_of_agents=70, num_of_items=10, normalized_sum_of_values=1000,
+            agent_capacity_bounds=[2,6],
+            item_capacity_bounds=[20,40],
+            item_base_value_bounds=[1,1000],
+            item_subjective_ratio_bounds=[0.5, 1.5]
+            )
+        allocation = fairpyx.divide(fairpyx.algorithms.SP_function(), instance=instance)
+        fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, SP_function")
 
 if __name__ == "__main__":
     pytest.main(["-v",__file__])
