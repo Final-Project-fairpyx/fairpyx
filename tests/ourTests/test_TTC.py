@@ -40,12 +40,12 @@ def test_big_example():
         valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4, "s5": s5, "s6": s6, "s7": s7}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
-                                                                                  's2': ['c1', 'c3', 'c4', 'c5'],
+    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3'],
+                                                                                  's2': ['c2', 'c3', 'c4', 'c5'],
                                                                                   's3': ['c1', 'c2', 'c4', 'c5'],
-                                                                                  's4': ['c1', 'c2', 'c3', 'c5'],
+                                                                                  's4': ['c1', 'c3', 'c5'],
                                                                                   's5': ['c1', 'c2', 'c3', 'c5'],
-                                                                                  's6': ['c1', 'c2', 'c3'],
+                                                                                  's6': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's7': ['c2', 'c3', 'c4', 'c5']}, "ERROR"
 
 # SP / TTC ************
@@ -65,10 +65,10 @@ def test_same_order_of_course_selection():
     )
 
     assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
-                                                                                  's2': ['c1', 'c3', 'c4', 'c5'],
+                                                                                  's2': ['c1', 'c2', 'c3', 'c4'],
                                                                                   's3': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's4': ['c1', 'c2', 'c3', 'c5'],
-                                                                                  's5': ['c1', 'c2', 'c3', 'c4'],
+                                                                                  's5': ['c2', 'c3', 'c4', 'c5'],
                                                                                   's6': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's7': ['c2', 'c3', 'c4', 'c5']}, "ERROR"
 
