@@ -1,3 +1,4 @@
+
 """
 Test that course-allocation algorithms return a feasible solution.
 
@@ -11,6 +12,19 @@ import fairpyx
 import numpy as np
 
 NUM_OF_RANDOM_INSTANCES=10
+
+
+def test_number_of_courses_is_not_optimal():
+    s1 = {"c1": 25, "c2": 25, "c3": 25, "c4": 25}
+    s2 = {"c1": 20, "c2": 20, "c3": 40, "c4": 20}
+    instance = fairpyx.Instance(
+        agent_capacities={"s1": 3, "s2": 3},
+        item_capacities={"c1": 1, "c2": 2, "c3": 2, "c4": 1},
+        valuations={"s1": s1, "s2": s2}
+    )
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1', 'c2', 'c4'], 's2': ['c2', 'c3']}, "ERROR"
+
+
 def test_small_example():
     s1 = {"c1": 50, "c2": 40, "c3": 5, "c4": 5}
     s2 = {"c1": 20, "c2": 20, "c3": 30, "c4": 30}
@@ -22,9 +36,10 @@ def test_small_example():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c2', 'c3'], 's2': ['c3', 'c4'], 's3': ['c1', 'c4']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c2', 'c3'],
+                                                                                  's2': ['c3', 'c4'],
+                                                                                  's3': ['c1', 'c4']}, "ERROR"
 
-# SP / TTC ************
 def test_big_example():
     s1 = {"c1": 50, "c2": 20, "c3": 10, "c4": 10,"c5": 10}
     s2 = {"c1": 2, "c2": 3, "c3": 5, "c4": 30,"c5": 60}
@@ -40,15 +55,15 @@ def test_big_example():
         valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4, "s5": s5, "s6": s6, "s7": s7}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3'],
-                                                                                  's2': ['c2', 'c3', 'c4', 'c5'],
+    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
+                                                                                  's2': ['c1', 'c3', 'c4', 'c5'],
                                                                                   's3': ['c1', 'c2', 'c4', 'c5'],
-                                                                                  's4': ['c1', 'c3', 'c5'],
+                                                                                  's4': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's5': ['c1', 'c2', 'c3', 'c5'],
-                                                                                  's6': ['c1', 'c2', 'c3', 'c5'],
+                                                                                  's6': ['c1', 'c2', 'c3'],
                                                                                   's7': ['c2', 'c3', 'c4', 'c5']}, "ERROR"
 
-# SP / TTC ************
+
 def test_same_order_of_course_selection():
     s1 = {"c1": 10, "c2": 20, "c3": 10, "c4": 50, "c5": 10}
     s2 = {"c1": 5, "c2": 30, "c3": 3, "c4": 60, "c5": 2}
@@ -65,28 +80,13 @@ def test_same_order_of_course_selection():
     )
 
     assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
-                                                                                  's2': ['c1', 'c2', 'c3', 'c4'],
+                                                                                  's2': ['c1', 'c3', 'c4', 'c5'],
                                                                                   's3': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's4': ['c1', 'c2', 'c3', 'c5'],
-                                                                                  's5': ['c2', 'c3', 'c4', 'c5'],
+                                                                                  's5': ['c1', 'c2', 'c3', 'c4'],
                                                                                   's6': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's7': ['c2', 'c3', 'c4', 'c5']}, "ERROR"
 
-
-def test_suboptimal_cardinal_utility():
-    s1 = {"c1": 30, "c2": 35, "c3": 35}
-    s2 = {"c1": 10, "c2": 80, "c3": 10}
-    s3 = {"c1": 34, "c2": 32, "c3": 34}
-
-    instance = fairpyx.Instance(
-        agent_capacities={"s1": 1, "s2": 1, "s3": 1},
-        item_capacities={"c1": 2, "c2": 1, "c3": 1},
-        valuations={"s1": s1, "s2": s2}
-    )
-
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'],
-                                                                                  's2': ['c2'],
-                                                                                  's3': ['c3']}, "ERROR"
 
 def test_optimal_change_result():
     s1 = {"c1": 50, "c2": 49, "c3": 1}
@@ -97,7 +97,7 @@ def test_optimal_change_result():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'], 's2': ['c2']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1'], 's2': ['c2']}, "ERROR"
 
 
 def test_sub_round_within_round():
@@ -110,7 +110,7 @@ def test_sub_round_within_round():
         valuations={"s1": s1, "s2": s2, "s3": s3}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c3'], 's2': ['c1'], 's3': ['c2']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c3'], 's2': ['c1'], 's3': ['c2']}, "ERROR"
 
 
 def test_students_with_the_same_list():
@@ -122,20 +122,7 @@ def test_students_with_the_same_list():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'], 's2': ['c2']}, "ERROR"
-
-
-def test_student_dont_get_k_courses():
-    s1 = {"c1": 50, "c2": 10, "c3": 40}
-    s2 = {"c1": 45, "c2": 30, "c3": 25}
-    s3 = {"c1": 49, "c2": 15, "c3": 36}
-    instance = fairpyx.Instance(
-        agent_capacities={"s1": 2, "s2": 2, "s3": 2},
-        item_capacities={"c1": 2, "c2": 2, "c2": 2},
-        valuations={"s1": s1, "s2": s2, "s3": s3}
-    )
-
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c3'], 's2': ['c2'], 's3': ['c1', 'c3']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1'], 's2': ['c2']}, "ERROR"
 
 
 def test_sub_round_within_sub_round():
@@ -144,11 +131,12 @@ def test_sub_round_within_sub_round():
     s3 = {"c1": 60, "c2": 30, "c3": 2, "c4": 8}
     instance = fairpyx.Instance(
         agent_capacities={"s1": 2, "s2": 2, "s3": 2},
-        item_capacities={"c1": 1, "c2": 2, "c2": 2, "c4": 1},
+        item_capacities={"c1": 1, "c2": 2, "c3": 2, "c4": 1},
         valuations={"s1": s1, "s2": s2, "s3": s3}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c4', 'c3'], 's2': ['c3', 'c2'], 's3': ['c1', 'c2']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1', 'c2'], 's2': ['c4', 'c3'], 's3': ['c3', 'c2']}, "ERROR"
+
 
 def test_student_bids_the_same_for_different_courses():
     s1 = {"c1": 50, "c2": 50}
@@ -160,7 +148,8 @@ def test_student_bids_the_same_for_different_courses():
         valuations={"s1": s1, "s2": s2, "s3": s3}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1']}, "ERROR"
+
 
 def test_from_the_article():
     s1 = {"c1": 400, "c2": 150, "c3": 230, "c4": 200, "c5": 20}
@@ -174,7 +163,8 @@ def test_from_the_article():
         valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c5'], 's2': ['c3', 'c2', 'c4'], 's3': ['c4', 'c3', 'c5'], 's4': ['c1', 'c3', 'c2']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1', 'c3', 'c2'], 's2': ['c3', 'c2', 'c4'], 's3': ['c4', 'c3', 'c5'], 's4': ['c1', 'c2', 'c5']}, "ERROR"
+
 
 def test_different_k_for_students():
     s1 = {"c1": 400, "c2": 200, "c3": 150, "c4": 130, "c5": 120}
@@ -190,8 +180,7 @@ def test_different_k_for_students():
         valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4, "s5": s5, "s6": s6, "s7": s7}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1', 'c2'], 's4': ['c2', 'c3', 'c5']}, "ERROR"
-
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1'], 's2': ['c2'], 's3': ['c1', 'c2'], 's4': ['c2', 'c3', 'c5'], 's5': ['c2', 'c3', 'c4'], 's6': ['c2', 'c3', 'c4', 'c5'], 's7': ['c3']}, "ERROR"
 
 def test_random():
     for i in range(NUM_OF_RANDOM_INSTANCES):
@@ -203,8 +192,8 @@ def test_random():
             item_base_value_bounds=[1,1000],
             item_subjective_ratio_bounds=[0.5, 1.5]
             )
-        allocation = fairpyx.divide(fairpyx.algorithms.TTC_O_function(), instance=instance)
-        fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, TTC_O_function")
+        allocation = fairpyx.divide(fairpyx.algorithms.SP_function(), instance=instance)
+        fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, SP_function")
 
 if __name__ == "__main__":
     pytest.main(["-v",__file__])

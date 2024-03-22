@@ -31,7 +31,7 @@ def test_student_get_k_courses():  # in ttc a student didn't get k cources
     s3 = {"c1": 49, "c2": 15, "c3": 36}
     instance = fairpyx.Instance(
         agent_capacities={"s1": 2, "s2": 2, "s3": 2},
-        item_capacities={"c1": 2, "c2": 2, "c2": 2},
+        item_capacities={"c1": 2, "c2": 2, "c3": 2},
         valuations={"s1": s1, "s2": s2, "s3": s3}
     )
 
@@ -57,7 +57,7 @@ def test_sub_round_within_sub_round():
     s3 = {"c1": 60, "c2": 30, "c3": 2, "c4": 8}
     instance = fairpyx.Instance(
         agent_capacities={"s1": 2, "s2": 2, "s3": 2},
-        item_capacities={"c1": 1, "c2": 2, "c2": 2, "c4": 1},
+        item_capacities={"c1": 1, "c2": 2, "c3": 2, "c4": 1},
         valuations={"s1": s1, "s2": s2, "s3": s3}
     )
 
