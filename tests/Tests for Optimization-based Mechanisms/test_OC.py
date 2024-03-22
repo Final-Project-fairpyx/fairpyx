@@ -55,7 +55,7 @@ def test_random():
             item_base_value_bounds=[1,1000],
             item_subjective_ratio_bounds=[0.5, 1.5]
             )
-        allocation = fairpyx.divide(fairpyx.algorithms.OC_function(), instance=instance)
+        allocation = fairpyx.divide(fairpyx.algorithms.OC_function, instance=instance)
         fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, OC_function")
 
 if __name__ == "__main__":
