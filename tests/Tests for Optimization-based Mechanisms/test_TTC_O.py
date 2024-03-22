@@ -74,7 +74,7 @@ def test_optimal_cardinal_utility():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c3'],
+    assert fairpyx.divide(fairpyx.algorithms.TTC_O_function, instance=instance) == {'s1': ['c3'],
                                                                                   's2': ['c2'],
                                                                                   's3': ['c1']}, "ERROR"
 
@@ -88,8 +88,8 @@ def test_optimal_cardinal_utility():
                 item_base_value_bounds=[1, 1000],
                 item_subjective_ratio_bounds=[0.5, 1.5]
             )
-            allocation = fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance)
-            fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, TTC_function")
+            allocation = fairpyx.divide(fairpyx.algorithms.TTC_O_function, instance=instance)
+            fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, TTC_O_function")
 
 if __name__ == "__main__":
     pytest.main(["-v",__file__])

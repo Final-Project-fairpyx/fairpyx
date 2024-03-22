@@ -48,7 +48,7 @@ def test_big_example():
                                                                                   's6': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's7': ['c2', 'c3', 'c4', 'c5']}, "ERROR"
 
-# SP / TTC ************
+
 def test_same_order_of_course_selection():
     s1 = {"c1": 10, "c2": 20, "c3": 10, "c4": 50, "c5": 10}
     s2 = {"c1": 5, "c2": 30, "c3": 3, "c4": 60, "c5": 2}
@@ -203,8 +203,8 @@ def test_random():
             item_base_value_bounds=[1,1000],
             item_subjective_ratio_bounds=[0.5, 1.5]
             )
-        allocation = fairpyx.divide(fairpyx.algorithms.TTC_O_function(), instance=instance)
-        fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, TTC_O_function")
+        allocation = fairpyx.divide(fairpyx.algorithms.TTC_function(), instance=instance)
+        fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, TTC_function")
 
 if __name__ == "__main__":
     pytest.main(["-v",__file__])
