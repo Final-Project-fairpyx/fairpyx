@@ -20,7 +20,7 @@ def test_optimal_number_of_courses():
         item_capacities={"c1": 1, "c2": 2, "c3": 2, "c4": 1},
         valuations={"s1": s1, "s2": s2}
     )
-    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1', 'c2', 'c3'], 's2': ['c2', 'c3', 'c4']}, "ERROR"
+    assert fairpyx.divide(fairpyx.algorithms.OC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3'], 's2': ['c2', 'c3', 'c4']}, "ERROR"
 
 def test_optimal_change_result():
     s1 = {"c1": 50, "c2": 49, "c3": 1}

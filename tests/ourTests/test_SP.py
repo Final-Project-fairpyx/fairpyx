@@ -36,7 +36,7 @@ def test_small_example():
         valuations={"s1": s1, "s2": s2}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c2', 'c3'],
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c2', 'c3'],
                                                                                   's2': ['c3', 'c4'],
                                                                                   's3': ['c1', 'c4']}, "ERROR"
 
@@ -55,7 +55,7 @@ def test_big_example():
         valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4, "s5": s5, "s6": s6, "s7": s7}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's2': ['c1', 'c3', 'c4', 'c5'],
                                                                                   's3': ['c1', 'c2', 'c4', 'c5'],
                                                                                   's4': ['c1', 'c2', 'c3', 'c5'],
@@ -79,7 +79,7 @@ def test_same_order_of_course_selection():
         valuations={"s1": s1, "s2": s2, "s3": s3, "s4": s4, "s5": s5, "s6": s6, "s7": s7}
     )
 
-    assert fairpyx.divide(fairpyx.algorithms.TTC_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
+    assert fairpyx.divide(fairpyx.algorithms.SP_function, instance=instance) == {'s1': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's2': ['c1', 'c3', 'c4', 'c5'],
                                                                                   's3': ['c1', 'c2', 'c3', 'c5'],
                                                                                   's4': ['c1', 'c2', 'c3', 'c5'],
