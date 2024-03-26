@@ -30,4 +30,7 @@ def OC_function(alloc: AllocationBuilder):
     {'s1': ['c1', 'c3'], 's2': ['c1', 'c2']}
     """
 
+if __name__ == "__main__":
+    import doctest, sys
+    print(doctest.testmod())
 

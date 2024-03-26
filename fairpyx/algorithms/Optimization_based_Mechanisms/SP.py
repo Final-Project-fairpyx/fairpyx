@@ -29,5 +29,6 @@ def SP_function(alloc: AllocationBuilder):
     {'s1': ['c1'], 's2': ['c2']}
     """
     
-
-
+if __name__ == "__main__":
+    import doctest, sys
+    print(doctest.testmod())

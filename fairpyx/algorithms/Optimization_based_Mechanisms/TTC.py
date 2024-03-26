@@ -34,10 +34,5 @@ if __name__ == "__main__":
     import doctest, sys
     print("\n",doctest.testmod(), "\n")
 
-    # sys.exit()
-
-    # logger.addHandler(logging.StreamHandler(sys.stdout))
-    # logger.setLevel(logging.INFO)
-
 
 
