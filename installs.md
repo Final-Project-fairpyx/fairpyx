@@ -8,7 +8,7 @@ optional: sudo rm -r fairpyx.egg-info/ (if there is exsist)
 pip install -e .   
 cd tests/Tests\ for\ Optimization-based\ Mechanisms/
 pip install pytest
-python3 -m <file without the py>
+python3 -m &lt;file without the py>
 
 optional: sudo rm -r .venv
    
@@ -18,4 +18,4 @@ python -m venv .venv
 pip install -e .   
 cd '.\tests\Tests for Optimization-based Mechanisms\'   
 pip install pytest   
-python -m <name of test file without the py>   
+python -m &lt;name of test file without the py>   
