@@ -59,5 +59,4 @@ def test_random():
         fairpyx.validate_allocation(instance, allocation, title=f"Seed {i}, OC_function")
 
 if __name__ == "__main__":
-    # pytest.main(["-v",__file__])
-    fairpyx.algorithms.opt.OC_function()
+    pytest.main(["-v",__file__])
